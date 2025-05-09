@@ -5,7 +5,9 @@ object cosas {
 object knightRider {
     method peso() = 500
 
-    method peligrosidad() = 10  
+    method peligrosidad() = 10
+
+    method bulto() = 1    
 }
 
 object bumblebee {
@@ -14,6 +16,8 @@ object bumblebee {
     method peso() = 800
 
     method peligrosidad() = suEstado.peligrosidad()
+
+    method bulto() = 2 
 
     method seTransforma(unEstado){
         suEstado = suEstado.nuevoEstado()
@@ -40,6 +44,9 @@ object ladrillos {
     method peso() = 2 * suCantidad
 
     method peligrosidad() = 2
+
+    method bulto() = if(suCantidad <= 100) 1 else if(suCantidad.between(101, 300)) 2 else 3 
+
 /*
     method cantidad() = suCantidad //getter
     method seTransforma(unaCant){ //setter
@@ -50,7 +57,9 @@ object ladrillos {
 
 object arena {
     var property suPeso = 50
-    method peligrosidad() = 1 
+    method peligrosidad() = 1
+
+    method bulto() = 1  
 }
 
 object bateriaAntiaerea {
@@ -68,7 +77,9 @@ object bateriaAntiaerea {
         tieneMisiles = false
     }
 
-    method hayMisiles() = tieneMisiles 
+    method hayMisiles() = tieneMisiles
+
+    method bulto() = if(tieneMisiles) 2 else 1 
 /*
     method hayMisiles() = tieneMisiles
     method hayMisiles(unEstado) {
@@ -85,6 +96,8 @@ object contenedor {
     
     method peligrosidad() = if(contenido.isEmpty()) 0 else contenido.max({c => c.peligrosidad()})
 
+    method bulto() = 1 + contenido.sum({c => c.bulto()})
+
     method agregarCosa(unaCosa){contenido.add(unaCosa)}
     method quitarCosa(unacosa){contenido.remove(unacosa)}
 
@@ -96,7 +109,9 @@ object contenedor {
 object residuosRadiactivos {
     var property peso = 0
 
-    method peligrosidad() = 200  
+    method peligrosidad() = 200
+
+    method bulto() = 1    
 }
 
 object embalaje {
@@ -106,6 +121,8 @@ object embalaje {
 
     method peso() = cosaEnvuelta.peso()
     
-    method peligrosidad() = cosaEnvuelta.peligrosidad() * 0.5  
+    method peligrosidad() = cosaEnvuelta.peligrosidad() * 0.5 
+
+    method bulto() = 2   
 
 }
